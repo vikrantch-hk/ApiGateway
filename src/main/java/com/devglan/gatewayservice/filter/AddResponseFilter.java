@@ -1,4 +1,4 @@
-package com.devglan.gatewayservice.config;
+package com.devglan.gatewayservice.filter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,12 +29,12 @@ public class AddResponseFilter extends ZuulFilter {
 		RequestContext context = RequestContext.getCurrentContext();
 		InputStream stream = context.getResponseDataStream();
 		String body;
-		try {
+		/*try {
 			body = StreamUtils.copyToString(stream, Charset.forName("UTF-8"));
-			context.setResponseBody("Modified via setResponseBody(): " + body);
+		//	context.setResponseBody("Modified via setResponseBody(): " + body);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		return null;
 	}
