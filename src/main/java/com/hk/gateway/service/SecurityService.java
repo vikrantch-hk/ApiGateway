@@ -13,7 +13,7 @@ import com.hk.gateway.client.SecurityFeignClient;
 import com.hk.gateway.response.SecurityResponseObj;
 
 @Service
-@EnableScheduling
+//@EnableScheduling
 public class SecurityService {
 
 	private static Logger logger = LoggerFactory.getLogger(SecurityService.class);
@@ -27,7 +27,7 @@ public class SecurityService {
 	private SecurityFeignClient client;
 
 	// 5 min fixed delay//initial delay 5s
-	@Scheduled(fixedDelay = 5000, initialDelay = 5000)
+//	@Scheduled(fixedDelay = 5000, initialDelay = 5000)
 	public void reloadSecurityCacheOnCluster() {
 		logger.info("Inside reloadSecurityCacheOnCluster");
 

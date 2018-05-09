@@ -60,12 +60,12 @@ public class HystrixFallbackConfiguration {
 	}
 
 	@Bean
-	public FallbackProvider zuulFallbackProvider2() {
+	public FallbackProvider securityFallback() {
 		return new FallbackProvider() {
 
 			public String getRoute() {
 				// Might be confusing: it's the serviceId property and not the route
-				return "second-service";
+				return "security-service";
 			}
 
 			public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
