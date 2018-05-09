@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.hk.gateway.filter.AddResponseFilter;
+import com.hk.gateway.filter.RoutingFilter;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 
 @Configuration
@@ -18,6 +19,11 @@ public class BeanConfig {
 	@Bean
 	public AddResponseFilter addRequestHeaderFilter() {
 		return new AddResponseFilter();
+	}
+	
+	@Bean
+	public RoutingFilter addRoutingFilter() {
+		return new RoutingFilter();
 	}
 	/*
 	 * @Bean public HKSecurityFilter addHKSecurityFilter(){ return new
