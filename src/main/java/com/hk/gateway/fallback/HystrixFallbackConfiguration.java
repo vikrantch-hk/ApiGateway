@@ -11,9 +11,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.hk.gateway.client.SecurityFeignClient;
+import com.hk.gateway.response.SecurityResponseObj;
 
 @Configuration
-public class HystrixFallbackConfiguration {
+public class HystrixFallbackConfiguration implements SecurityFeignClient {
+
+	@Override
+	public SecurityResponseObj getApplicationConfiguration(String applicationId) {
+		System.out.println(" feign fallback");
+		return new SecurityResponseObj();
+	}
 
 	@Bean
 	public FallbackProvider zuulFallbackProvider() {

@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -42,9 +43,9 @@ public class HKImageUtil {
 	@Autowired
 	private StoreService storeService;
 
-	// @Value("#{hkEnvProps['" + Keys.noOfImagesInRepositorySubDir + "']}")
+	@Value("${noOfImagesInRepositorySubDir}")
 	Long noOfImagesInRepositoryDir;
-	// @Value("#{hkEnvProps['" + Keys.imageUploads + "']}")
+	@Value("${imageUploads}")
 	String imageUploads;
 
 	private static Logger logger = LoggerFactory.getLogger(HKImageUtil.class);
@@ -83,10 +84,10 @@ public class HKImageUtil {
 	public static String imageDistPrefix;
 	public static String imageDistSuffix;
 
-	// @Value("#{hkEnvProps['" + Keys.imageDistributionDomainPrefix + "']}")
+	@Value("${imageDistributionDomainPrefix}")
 	String imageDistributionDomainPrefix;
 
-	// @Value("#{hkEnvProps['" + Keys.imageDistributionDomainSuffix + "']}")
+	@Value("${imageDistributionDomainSuffix}")
 	String imageDistributionDomainSuffix;
 
 	@PostConstruct

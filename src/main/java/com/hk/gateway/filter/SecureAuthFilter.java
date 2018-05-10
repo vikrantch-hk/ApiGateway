@@ -52,7 +52,15 @@ public class SecureAuthFilter extends ZuulFilter {
 	private AgentHasUserService agentHasUserService;
 
 	public boolean shouldFilter() {
-		return true;
+		String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
+		return (requestURI.contains("/api/cart/v3/") || requestURI.contains("/api/user/v3/")
+				|| requestURI.contains("/api/search/v3/") || requestURI.contains("/api/event/v3/")
+				|| requestURI.contains("/api/b2b/user/v3/") || requestURI.contains("/api/user/account/v3/")
+				|| requestURI.contains("/api/user/address/v3/") || requestURI.contains("/api/payment/v3/")
+				|| requestURI.contains("/api/form/data/v3/") || requestURI.contains("/api/header/v3/")
+				|| requestURI.contains("/api/app/v3/") || requestURI.contains("/api/order/v3/")
+				|| requestURI.contains("/api/usergoal/v3/") || requestURI.contains("/api/userPoints/reward/v3/")
+				|| requestURI.contains("/api/user/counselling/v3/") || requestURI.contains("/api/gym/v3/"));
 	}
 
 	public Object run() throws ZuulException {

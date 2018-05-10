@@ -4,7 +4,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.hk.gateway.filter.AddResponseFilter;
+import com.hk.gateway.filter.HKSecurityFilter;
 import com.hk.gateway.filter.RoutingFilter;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 
@@ -16,19 +16,16 @@ public class BeanConfig {
 		return new ServletRegistrationBean(new HystrixMetricsStreamServlet(), "/hystrix.stream");
 	}
 
-	@Bean
-	public AddResponseFilter addRequestHeaderFilter() {
-		return new AddResponseFilter();
-	}
-	
-	@Bean
-	public RoutingFilter addRoutingFilter() {
-		return new RoutingFilter();
-	}
 	/*
-	 * @Bean public HKSecurityFilter addHKSecurityFilter(){ return new
-	 * HKSecurityFilter(); }
-	 * 
+	 * @Bean public RoutingFilter addRoutingFilter() { return new RoutingFilter(); }
+	 */
+
+	@Bean
+	public HKSecurityFilter addHKSecurityFilter() {
+		return new HKSecurityFilter();
+	}
+
+	/*
 	 * @Bean public SecureAuthFilter addSecureAuthFilter(){ return new
 	 * SecureAuthFilter(); }
 	 * 

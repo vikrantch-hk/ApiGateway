@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.hk.gateway.constant.RequestConstants;
 import com.netflix.zuul.ZuulFilter;
@@ -15,12 +16,13 @@ import com.netflix.zuul.exception.ZuulException;
 public class HkHttpRequestFilter extends ZuulFilter {
 
 	private static final String DEFAULT_ALLOWED_USER_AGENT = ".*";
-	// @Value
-	private String allowedUserAgent = "a";
+	@Value("${allowedUserAgent}")
+	private String allowedUserAgent;
 	private static Logger logger = LoggerFactory.getLogger(HkHttpRequestFilter.class);
 
 	public boolean shouldFilter() {
-		return true;
+		String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
+		return requestURI.contains("/api/");
 	}
 
 	public Object run() throws ZuulException {
@@ -32,8 +34,6 @@ public class HkHttpRequestFilter extends ZuulFilter {
 		ServletRequest request = context.getRequest();
 		if (request instanceof HttpServletRequest) {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-			// logger.info("REQUEST FILTER LOGGER FOR API : " +
-			// httpServletRequest.getRequestURL().toString());
 			if (!(httpServletRequest.getHeader("User-Agent") != null
 					&& !httpServletRequest.getHeader("User-Agent").matches(allowedUserAgent))) {
 				String headerUserId = httpServletRequest.getHeader(RequestConstants.USER_ID);

@@ -14,12 +14,16 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
+    preferIpAddress: true
 eureka.server.enable-self-preservation: false
 management:
   endpoint:
     health:
       enabled: true
 server.port: 8761
+feign.hystrix.enabled: true
+hystrix.command.default.fallback.enabled: true
+hystrix.command.default.circuitBreaker.enabled: true
 third:
   party:
     api:
@@ -34,10 +38,10 @@ zuul:
       path: /first-service/**
       service-id: first-service
       strip-prefix: true
-    security-service: 
-      path: /security-service/**
-      service-id: security-service
-      strip-prefix: true
+    hkSecurity: 
+      path: /hkSecurity/**
+      service-id: hkSecurity
+      strip-prefix: false
 hystrix:
   command:
     security-service:
@@ -72,7 +76,7 @@ spring.datasource.password : admin2K11!
 spring.jpa.properties.hibernate.current_session_context_class : org.springframework.orm.hibernate5.SpringSessionContext
 
 # Show or not log for each sql query
-spring.jpa.show-sql : true
+spring.jpa.show-sql : false
 
 # Hibernate ddl auto (create, create-drop, update): with "update" the database
 # schema will be automatically updated accordingly to java entities found in
@@ -85,3 +89,13 @@ spring.jpa.properties.hibernate.dialect : org.hibernate.dialect.MySQL5InnoDBDial
 spring.jpa.properties.hibernate.connection.release_mode: on_close
 spring.jpa.properties.hibernate.connection.isolation: 2
 spring.jpa.properties.hibernate. bytecode.use_reflection_optimizer: true
+
+
+#####################################################  environment locator #####################################################
+allowedUserAgent: .*
+apiApplicationId: c558bca0-e618-11e7-a018-d7ea46df960e
+useHkSecurity: true
+noOfImagesInRepositorySubDir: 100
+imageUploads: /usr/local/projects/HealthKartWork/imageUploads
+imageDistributionDomainPrefix: img
+imageDistributionDomainSuffix: hkrtcdn.com

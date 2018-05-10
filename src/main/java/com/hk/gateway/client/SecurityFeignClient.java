@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.hk.gateway.fallback.HystrixFallbackConfiguration;
 import com.hk.gateway.response.SecurityResponseObj;
 
-@FeignClient(name = "security-service", fallback=HystrixFallbackConfiguration.class) // Service Id
+@FeignClient(name = "${zuul.routes.hkSecurity.service-id}", fallback = HystrixFallbackConfiguration.class)
 public interface SecurityFeignClient {
 	@RequestMapping(path = "hkSecurity/getApplicationConfiguration/{applicationId}", produces = "application/json", method = RequestMethod.GET)
 	public SecurityResponseObj getApplicationConfiguration(@PathVariable(value = "applicationId") String applicationId);

@@ -38,13 +38,13 @@ public class HKSecurityFilter extends ZuulFilter {
 	}
 
 	public boolean shouldFilter() {
-		return true;
+		String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
+		return requestURI.contains("/api/");
 	}
 
 	public Object run() throws ZuulException {
 		RequestContext context = RequestContext.getCurrentContext();
 		ServletRequest request = context.getRequest();
-		// ServletResponse response = context.getResponse();
 		if (securityService == null) {
 			ServletContext servletContext = request.getServletContext();
 			WebApplicationContext webApplicationContext = WebApplicationContextUtils
@@ -76,7 +76,7 @@ public class HKSecurityFilter extends ZuulFilter {
 				if (endIndex < 0) {
 					endIndex = clientAPI.length();
 				}
-				String clientAPITrimmed = clientAPI.substring(clientAPI.indexOf("/first-service/"), endIndex);
+				String clientAPITrimmed = clientAPI.substring(clientAPI.indexOf("/api/"), endIndex);
 				String clientAPIArray[] = clientAPITrimmed.split("/");
 				int clientAPIArrayLength = clientAPIArray.length;
 				Map<Integer, Set<String>> nonStarOpenApiMap = (Map<Integer, Set<String>>) securityResponseObj

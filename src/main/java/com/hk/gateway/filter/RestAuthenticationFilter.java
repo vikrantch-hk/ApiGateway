@@ -20,12 +20,12 @@ public class RestAuthenticationFilter extends ZuulFilter {
 
 	@Override
 	public boolean shouldFilter() {
-		return true;
+		String requestURI = RequestContext.getCurrentContext().getRequest().getRequestURI();
+		return (requestURI.contains("/api/public/") || requestURI.contains("/feed/analytics/"));
 	}
 
 	@Override
 	public Object run() throws ZuulException {
-
 		RequestContext context = RequestContext.getCurrentContext();
 		ServletRequest request = context.getRequest();
 		if (request instanceof HttpServletRequest) {
